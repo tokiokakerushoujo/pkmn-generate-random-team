@@ -1,0 +1,154 @@
+Serperior
+Emboar
+Samurott
+Watchog
+Liepard
+Unfezant
+Leavanny
+Sunflora
+Stoutland
+Ampharos
+Golduck
+Azumarill
+Lucario
+Dunsparce
+Audino
+Simisage
+Simisear
+Simipour
+Scolipede
+Weezing
+Magnezone
+Arcanine
+Magmortar [b2]
+Electivire [w2]
+Raticate
+Crobat
+Muk
+Swoobat
+Gigalith
+Steelix
+Conkeldurr
+Excadrill
+Delcatty [w2]
+Lopunny
+Whimsicott [b2]
+Lilligant [w2]
+Musharna
+Clefable
+Vaporeon
+Jolteon
+Flareon
+Espeon
+Umbreon
+Leafeon
+Glaceon
+Krookodile
+Darmanitan
+Basculin
+Garbodor
+Cinccino
+Braviary [w2]
+Mandibuzz [b2]
+Sandslash
+Crustle
+Scrafty
+Maractus
+Sigilyph
+Flygon
+Cofagrigus
+Carracosta
+Archeops
+Klinklang
+Roserade
+Gothitelle [b2]
+Reuniclus [w2]
+Vespiquen
+Emolga
+Heracross [b2]
+Pinsir [w2]
+Zebstrika
+Floatzel
+Zoroark
+Swanna
+Escavalier
+Accelgor
+Sawsbuck
+Amoonguss
+Castform
+Probopass
+Aggron
+Claydol
+Volcarona
+Galvantula
+Ferrothorn
+Eelektross
+Jellicent
+Alomomola
+Haxorus
+Zangoose
+Seviper
+Beheeyem
+Chandelure
+Heatmor
+Durant
+Beartic
+Cryogonal
+Tornadus
+Thundurus
+Landorus
+Drapion
+Skarmory
+Camerupt [w2]
+Grumpig [b2]
+Drifblim
+Banette
+Pelipper
+Lunatone
+Solrock
+Absol
+Tangrowth
+Mienshao
+Gliscor
+Bisharp
+Cobalion
+Terrakion
+Virizion
+Seismitoad
+Stunfisk
+Shuckle
+Mantine
+Octillery
+Corsola
+Starmie
+Wailord
+Lapras
+Walrein
+Altaria
+Ninetales
+Bronzong
+Weavile
+Delibird
+Vanilluxe
+Mamoswine
+Ditto
+Metagross
+Dewgong
+Throh
+Sawk
+Bouffalant
+Druddigon
+Golurk
+Hydreigon
+Slaking
+Crawdaunt
+Wigglytuff
+Lickilicky
+Yanmega
+Tropius
+Carnivine
+Toxicroak
+Tyranitar
+Reshiram [w2]
+Zekrom [b2]
+Kyurem
