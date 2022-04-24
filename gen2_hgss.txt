@@ -1,0 +1,136 @@
+Meganium
+Typhlosion
+Feraligatr
+Pidgeot
+Fearow
+Noctowl
+Raticate
+Furret
+Raichu
+Butterfree
+Beedrill
+Ledian [ss]
+Ariados [hg]
+Golem
+Crobat
+Clefable
+Wigglytuff
+Togetic
+Sandslash
+Arbok
+Dunsparce
+Ampharos
+Quagsire
+Gengar
+Unown
+Steelix
+Victreebel
+Jumpluff
+Parasect
+Poliwrath
+Politoed
+Gyarados
+Seaking
+Slowbro
+Slowking
+Vileplume
+Bellossom
+Hypno
+Alakazam
+Ditto
+Forretress
+Nidoqueen
+Nidoking
+Yanmega
+Sunflora
+Exeggutor
+Sudowoodo
+Wobbuffet
+Venomoth
+Scizor
+Pinsir
+Heracross
+Weezing
+Muk
+Magneton
+Electrode
+Ambipom
+Granbull
+Ninetales [ss]
+Arcanine [hg]
+Stantler
+Azumarill
+Dugtrio
+Primeape [hg]
+Persian [ss]
+Golduck
+Machamp
+Hitmonlee
+Hitmonchan
+Hitmontop
+Girafarig
+Tauros
+Miltank
+Magmar
+Jynx
+Electabuzz
+Mr. Mime
+Smeargle
+Farfetch'd
+Xatu
+Qwilfish
+Tentacruel
+Kingler
+Shuckle
+Starmie
+Cloyster
+Corsola
+Octillery
+Lanturn
+Dewgong
+Lickilicky
+Tangrowth
+Vaporeon
+Jolteon
+Flareon
+Espeon
+Umbreon
+Kingdra
+Gligar [hg]
+Delibird [ss]
+Mamoswine
+Ursaring [ss]
+Donphan [hg]
+Mantine [hg]
+Skarmory [ss]
+Dodrio
+Rapidash
+Marowak
+Kangaskhan
+Rhydon
+Murkrow
+Houndoom
+Magcargo
+Sneasel
+Misdreavus
+Porygon2
+Blissey
+Lapras
+Omastar [hg]
+Kabutops [ss]
+Aerodactyl
+Snorlax
+Venusaur
+Charizard
+Blastoise
+Articuno
+Zapdos
+Moltres
+Raikou
+Entei
+Suicune
+Dragonite
+Tyranitar
+Lugia
+Ho-oh
+Mewtwo

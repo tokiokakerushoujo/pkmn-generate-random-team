@@ -1,0 +1,80 @@
+Venusaur
+Charizard
+Blastoise
+Butterfree
+Beedrill
+Pidgeot
+Raticate
+Fearow
+Arbok [r|fr]
+Raichu
+Sandslash [b|lg]
+Nidoqueen
+Nidoking
+Clefable
+Ninetales [b|lg]
+Wigglytuff
+Golbat
+Vileplume [r|fr]
+Parasect
+Venomoth
+Dugtrio
+Persian [b]
+Golduck [fr]
+Primeape [r]
+Arcanine [r|fr]
+Poliwrath
+Alakazam
+Machamp
+Victreebel [b|lg]
+Tentacruel
+Golem
+Rapidash
+Slowbro [lg]
+Magneton
+Farfetch'd
+Dodrio
+Dewgong
+Muk
+Cloyster [fr]
+Gengar
+Onix
+Hypno
+Kingler
+Electrode
+Exeggutor
+Marowak
+Hitmonlee
+Hitmonchan
+Lickitung
+Weezing
+Rhydon
+Chansey
+Tangela
+Kangaskhan
+Seadra
+Seaking
+Starmie [lg]
+Mr. Mime
+Scyther [r|fr]
+Jynx
+Electabuzz [r|fr]
+Magmar [b|lg]
+Pinsir [b|lg]
+Tauros
+Gyarados
+Lapras
+Ditto
+Vaporeon
+Jolteon
+Flareon
+Porygon
+Omastar
+Kabutops
+Aerodactyl
+Snorlax
+Articuno
+Zapdos
+Moltres
+Dragonite
+Mewtwo
