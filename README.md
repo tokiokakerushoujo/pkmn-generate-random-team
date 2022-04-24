@@ -29,9 +29,7 @@ Lists were taken from the serebii or pokemondb.net regional dex lists for each g
 ## Todo
 
 Finish lists:
-- Gen 3 (RS, ORAS)
+- Gen 3 (RS)
 - Gen 4 (BDSP)
-- Gen 5 (BW, B2W2)
-- Gen 6 (XY)
 - Gen 7 (SM, USUM)
 - Gen 8 (SwSh)
