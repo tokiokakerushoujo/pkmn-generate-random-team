@@ -53,21 +53,23 @@ def generate_list(filename, count):
 files = [
     "gen1.txt", "gen2.txt", "gen2_crystal.txt",
     "gen2_hgss.txt", "gen3_emerald.txt", "gen4.txt",
-    "gen4_pt.txt", "gen5.txt", "gen5_b2w2.txt"
+    "gen4_pt.txt", "gen5.txt", "gen5_b2w2.txt",
+    "gen6.txt"
 ]
 
 
 def prompt():
     try:
-        choice = int(input("""        [0]: gen 1 (rby/frlg)
-        [1]: gen 2 (gs)
-        [2]: gen 2 (c)
-        [3]: gen 2 (hgss)
-        [4]: gen 3 (em)
-        [5]: gen 4 (dp)
-        [6]: gen 4 (pt)
-        [7]: gen 5 (bw)
-        [8]: gen 5 (b2w2)
+        choice = int(input("""        [ 0]: gen 1 (rby/frlg)
+        [ 1]: gen 2 (gs)
+        [ 2]: gen 2 (c)
+        [ 3]: gen 2 (hgss)
+        [ 4]: gen 3 (em)
+        [ 5]: gen 4 (dp)
+        [ 6]: gen 4 (pt)
+        [ 7]: gen 5 (bw)
+        [ 8]: gen 5 (b2w2)
+        [ 9]: gen 6 (xy)
         > """))
         if (choice not in range(0, len(files))):
             print("Invalid input.")
