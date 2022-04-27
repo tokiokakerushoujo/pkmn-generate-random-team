@@ -26,7 +26,7 @@ def pkmn_matches_version(versions, pkmn):
 def generate_list(filename, count):
     team = []
     versions = None
-    with open(filename, "r") as pklist:
+    with open(filename, "r", encoding="utf-8") as pklist:
         pkmn = pklist.readlines()
         shuffle_list_x_times(pkmn, count)
         i = 0
@@ -86,7 +86,7 @@ def prompt():
 if __name__ == "__main__":
     parser = argparse.ArgumentParser("generate_random_team")
     parser.add_argument(
-        "-f",
+        "-i",
         "--infile",
         help="List of pokemon to generate a team from",
         type=str)
