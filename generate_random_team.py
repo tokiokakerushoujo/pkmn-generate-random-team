@@ -114,6 +114,6 @@ if __name__ == "__main__":
     team = generate_list(infile, args.count)
 
     if args.outfile:
-        args.outfile.write(", ".join(team))
+        args.outfile.write("\n".join(team))
     else:
         print(team)
