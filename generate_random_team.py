@@ -96,6 +96,13 @@ if __name__ == "__main__":
         help="Number of times to shuffle the list (default 1167)",
         type=int,
         default=1167)
+    parser.add_argument(
+        "-o",
+        "--outfile",
+        help="Destination file to write generated team",
+        type=argparse.FileType(
+            "w",
+            encoding="utf-8"))
 
     args = parser.parse_args()
 
@@ -105,4 +112,8 @@ if __name__ == "__main__":
         exit()
 
     team = generate_list(infile, args.count)
-    print(team)
+
+    if args.outfile:
+        args.outfile.write(", ".join(team))
+    else:
+        print(team)
