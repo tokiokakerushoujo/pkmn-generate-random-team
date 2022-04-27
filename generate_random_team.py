@@ -77,7 +77,7 @@ def prompt():
         if (choice not in range(0, len(files))):
             print("Invalid input.")
             return None
-        return files[choice]
+        return f"lists/{files[choice]}"
     except BaseException:
         print("Invalid input.")
         return None
