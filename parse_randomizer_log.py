@@ -4,6 +4,7 @@ import argparse
 # TODO: figure out a better iteration method
 # than repeating the file boilerplate
 
+
 def is_wild_pokemon_set(line):
     return re.match(r"^Set \#\d{1,3}.*", line) is not None
 
@@ -62,7 +63,8 @@ def get_wild_pkmn_with_locations(wild_sets):
 def extract_from_file(logfile, with_locations):
     lines = logfile.readlines()
     wild_sets = get_wild_sets(lines)
-    return get_wild_pkmn_with_locations(wild_sets) if with_locations else get_wild_pkmn(wild_sets)
+    return get_wild_pkmn_with_locations(
+        wild_sets) if with_locations else get_wild_pkmn(wild_sets)
 
 
 def find_pokemon_locations_in_file(logfile, pkmn):
