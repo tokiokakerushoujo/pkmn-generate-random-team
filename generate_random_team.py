@@ -57,7 +57,8 @@ files = [
     "gen4.txt", "gen4_pt.txt",
     "gen5.txt", "gen5_b2w2.txt",
     "gen6.txt",
-    "gen7.txt", "gen7_u.txt"
+    "gen7.txt", "gen7_u.txt",
+    "gen8.txt"
 ]
 
 
@@ -77,6 +78,7 @@ def prompt():
         [11]: gen 6 (xy)
         [12]: gen 7 (sm)
         [13]: gen 7 (usum)
+        [14]: gen 8 (swsh)
         > """))
         if (choice not in range(0, len(files))):
             print("Invalid input.")

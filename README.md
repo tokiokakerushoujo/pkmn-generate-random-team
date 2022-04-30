@@ -70,4 +70,4 @@ Lists were taken from the serebii or pokemondb.net regional dex lists for each g
 ## Todo
 
 Finish lists:
-- Gen 8 (SwSh)
+- Gen 8 (integrated Isle of Armor, Crown Tundra pokedexes)

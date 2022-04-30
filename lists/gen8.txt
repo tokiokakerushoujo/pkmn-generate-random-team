@@ -1,0 +1,206 @@
+Rillaboom
+Cinderace
+Inteleon
+Orbeetle
+Butterfree
+Vikavolt
+Noctowl
+Corviknight
+Greedent
+Unfezant
+Thievul
+Obstagoon
+Dubwool
+Ludicolo [sh]
+Shiftry [sw]
+Drednaw
+Liepard
+Boltund
+Diggersby
+Cinccino
+Tsareena
+Vileplume
+Bellossom
+Roserade
+Pelipper
+Galvantula
+Manectric
+Ninetales
+Arcanine
+Vanilluxe
+Mamoswine
+Delibird
+Glalie
+Froslass
+Claydol
+Mudsdale
+Crustle
+Golurk
+Musharna
+Xatu
+Bewear
+Abomasnow
+Kingler
+Quagsire
+Crawdaunt
+Ninjask
+Shedinja
+Hitmonlee
+Hitmonchan
+Hitmontop
+Pangoro
+Klinklang
+Vespiquen
+Bronzong
+Gardevoir
+Gallade
+Drifblim
+Eldegoss
+Cherrim
+Skuntank
+Seismitoad
+Dusknoir
+Machamp
+Gengar
+Gyarados
+Seaking
+Octillery
+Cloyster
+Milotic
+Basculin
+Wishiwashi
+Pyukumuku
+Garbodor
+Centiskorch
+Coalossal
+Dugtrio
+Excadrill
+Gigalith
+Conkeldurr
+Swoobat
+Noivern
+Steelix
+Barraskewda
+Perrserker
+Persian
+Alcremie
+Ribombee
+Ferrothorn
+Gourgeist
+Raichu
+Vaporeon
+Jolteon
+Flareon
+Espeon
+Umbreon
+Leafeon
+Glaceon
+Sylveon
+Flapple [sw]
+Appletun [sh]
+Meowstic
+Slurpuff [sw]
+Aromatisse [sh]
+Araquanid
+Wobbuffet
+Sirfetch'd [sw]
+Lanturn
+Toxicroak [sh]
+Scrafty [sw]
+Stunfisk
+Shuckle
+Whiscash
+Gastrodon
+Golisopod
+Barbaracle
+Cursola [sh]
+Grimmsnarl
+Hatterene
+Salazzle
+Bisharp
+Throh
+Sawk
+Weezing
+Sudowoodo
+Clefable
+Togekiss
+Snorlax
+Whimsicott
+Rhyperior
+Gothitelle　[sw]
+Reuniclus [sh]
+Escavalier
+Accelgor
+Beheeyem
+Beartic
+Braviary [sw]
+Mandibuzz [sh]
+Drapion
+Chandelure
+Malamar
+Weavile
+Sableye [sh]
+Mawile [sw]
+Maractus
+Sigilyph
+Lucario
+Torkoal
+Mimikyu
+Copperajah
+Qwilfish
+Jellicent
+Toxapex
+Cramorant
+Toxtricity
+Sandaconda
+Hippowdon
+Durant
+Heatmor
+Heliolisk
+Hawlucha
+Flygon
+Haxorus
+Runerigus
+Cofagrigus
+Aegislash
+Rapidash [sh]
+Polteageist
+Indeedee
+Trevenant
+Shiinotic
+Oranguru [sh]
+Passimian [sw]
+Morpeko
+Falinks
+Drampa [sh]
+Turtonator [sw]
+Togedemaru
+Frosmoth
+Grapploct
+Pincurchin
+Mantine
+Wailord
+Avalugg
+Dhelmise
+Lapras
+Lunatone [sh]
+Solrock [sw]
+Mr. Rime
+Darmanitan [sw]
+Stonjourner [sw]
+Eiscue [sh]
+Duraludon
+Rotom
+Ditto
+Dracozolt
+Arctozolt
+Dracovish
+Arctovish
+Charizard
+Silvally
+Tyranitar [sh]
+Hydreigon [sw]
+Goodra [sh]
+Kommo-o [sw]
+Dragapult
+Eternatus
