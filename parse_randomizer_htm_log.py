@@ -98,11 +98,26 @@ class PkmnRandomizer:
             if (pkmn in self.pkmn_locations[loc]):
                 yield loc
     
-    def get_random_team_from_available_pokemon(self):
+    def get_nfe_list(self):
+        NFE_LIST = []
+        with open("./lists/nfe.txt", "r") as nfe_file:
+            NFE_LIST = nfe_file.readlines()
+        return NFE_LIST
+
+    def get_random_team_from_available_pokemon(self, force_fully_evolved=False):
         if self.available_pkmn is None:
             raise LookupError("Pokemon availability table not populated.")
 
         pkmn = random.sample(list(self.available_pkmn), 6)
+        # add section for filter to non-NFEs?
+        if (force_fully_evolved):
+            NFE_LIST = self.get_nfe_list()  
+            for (ind, pk) in enumerate(pkmn):
+                new_pkmn = pk
+                while new_pkmn in NFE_LIST and new_pkmn not in pkmn:
+                    new_pkmn = random.choice(list(self.available_pkmn))
+                pkmn[ind] = new_pkmn
+        
         team = []
         for member in pkmn:
             team.append(self.get_stats_for_pkmn(member, include_locations=True))
