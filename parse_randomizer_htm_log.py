@@ -1,6 +1,8 @@
 from bs4 import BeautifulSoup
 import random
 
+# for use with the Brentspector release of the universal pkmn randomizer
+# apparently.
 
 class PkmnRandomizer:
     def __init__(self, randomizer_logfile) -> None:
