@@ -1,4 +1,5 @@
 from typing import Optional, TypedDict
+import random
 import re
 
 # should probably declare some pokemon data types to keep me honest
@@ -86,9 +87,8 @@ class PkmnRandomizerLogParser:
             level_floor = min(level_floor, new_lvl_floor)
 
             pkmn_data[pkmn] = {"level_floor": level_floor, "level_ceil": level_ceil}
-            self.wild_pokemon.add(
-                pkmn
-            )  # side-effect: this is just to make processing the list of wild pokemon easier later
+            # side-effect: this is just to make processing the list of wild pokemon easier later
+            self.wild_pokemon.add(pkmn)
 
         return pkmn_data
 
@@ -191,19 +191,13 @@ class PkmnRandomizerLogParser:
             )
         return self.pkmn_stats[species]
 
-
 def test():
     print("Test.")
     infile = "test_zx_emerald.gba.log"
     pkr = PkmnRandomizerLogParser(infile)
-    import random
-
-    random_pkmn = random.choice(list(pkr.wild_pokemon))
-    print(random_pkmn, pkr.get_pokemon_stats(random_pkmn))
-    # print(sorted(pkr.wild_pokemon), len(pkr.wild_pokemon))
-    # pkmn = list(pkr.extract_pkmn_from_lines(indices[0], indices[1]))
-    # print(pkmn)
-
+    team = random.sample(list(pkr.wild_pokemon), 6)
+    for member in team:
+        print(member, pkr.get_pokemon_stats(member))
 
 if __name__ == "__main__":
     test()
