@@ -4,6 +4,7 @@ import re
 
 def shuffle_list_x_times(list, count=1167):
     import random
+
     for _ in range(0, count):
         random.shuffle(list)
 
@@ -15,12 +16,17 @@ def pkmn_has_version_tag(pkmn):
 
 def get_version_tags(pkmn):
     v = re.search(r"\[(\w*\|?)*\]", pkmn)
-    return v[0][1:-1].split('|')
+    if v is None:
+        return ""
+    return v[0][1:-1].split("|")
 
 
 def pkmn_matches_version(versions, pkmn):
-    return any([ver in versions for ver in get_version_tags(pkmn)]
-               ) if versions is not None else True
+    return (
+        any([ver in versions for ver in get_version_tags(pkmn)])
+        if versions is not None
+        else True
+    )
 
 
 def generate_list(filename, count):
@@ -52,19 +58,28 @@ def generate_list(filename, count):
 
 files = [
     "gen1.txt",
-    "gen2.txt", "gen2_crystal.txt", "gen2_hgss.txt",
-    "gen3.txt", "gen3_emerald.txt", "gen3_oras.txt",
-    "gen4.txt", "gen4_pt.txt",
-    "gen5.txt", "gen5_b2w2.txt",
+    "gen2.txt",
+    "gen2_crystal.txt",
+    "gen2_hgss.txt",
+    "gen3.txt",
+    "gen3_emerald.txt",
+    "gen3_oras.txt",
+    "gen4.txt",
+    "gen4_pt.txt",
+    "gen5.txt",
+    "gen5_b2w2.txt",
     "gen6.txt",
-    "gen7.txt", "gen7_u.txt",
-    "gen8.txt"
+    "gen7.txt",
+    "gen7_u.txt",
+    "gen8.txt",
 ]
 
 
 def prompt():
     try:
-        choice = int(input("""        [ 0]: gen 1 (rby/frlg)
+        choice = int(
+            input(
+                """        [ 0]: gen 1 (rby/frlg)
         [ 1]: gen 2 (gs)
         [ 2]: gen 2 (c)
         [ 3]: gen 2 (hgss)
@@ -79,8 +94,10 @@ def prompt():
         [12]: gen 7 (sm)
         [13]: gen 7 (usum)
         [14]: gen 8 (swsh)
-        > """))
-        if (choice not in range(0, len(files))):
+        > """
+            )
+        )
+        if choice not in range(0, len(files)):
             print("Invalid input.")
             return None
         return f"lists/{files[choice]}"
@@ -92,23 +109,21 @@ def prompt():
 if __name__ == "__main__":
     parser = argparse.ArgumentParser("generate_random_team")
     parser.add_argument(
-        "-i",
-        "--infile",
-        help="List of pokemon to generate a team from",
-        type=str)
+        "-i", "--infile", help="List of pokemon to generate a team from", type=str
+    )
     parser.add_argument(
         "-c",
         "--count",
         help="Number of times to shuffle the list (default 1167)",
         type=int,
-        default=1167)
+        default=1167,
+    )
     parser.add_argument(
         "-o",
         "--outfile",
         help="Destination file to write generated team",
-        type=argparse.FileType(
-            "w",
-            encoding="utf-8"))
+        type=argparse.FileType("w", encoding="utf-8"),
+    )
 
     args = parser.parse_args()
 
