@@ -1,6 +1,7 @@
 from typing import Optional
 import re
 
+
 class PkmnRandomizerNormalLogParser:
     def __init__(self, logfile: str) -> None:
         self.log_data = self.read_log(logfile)

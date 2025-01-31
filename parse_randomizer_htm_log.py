@@ -4,6 +4,7 @@ import random
 # for use with the Brentspector release of the universal pkmn randomizer apparently.
 # if your rando has "version 1.10.3" somewhere in it, you're gonna get an HTML log
 
+
 class PkmnRandomizerHtmLogParser:
     def __init__(self, randomizer_logfile) -> None:
         self.available_pkmn = None
