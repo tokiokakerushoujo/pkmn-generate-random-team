@@ -105,6 +105,47 @@ def prompt():
         print("Invalid input.")
         return None
 
+# Removed from parse_randomizer_htm_log because that's not that file's responsiblity
+# but I wanna keep this snippet around for later when I rewrite this section
+# def choose_encounter_for_all_locations(self):
+#     if self.pkmn_by_location is None:
+#         raise LookupError("Pokemon stats table not populated.")
+#     location_encounters = {}
+#     for loc in self.pkmn_by_location:
+#         locations = filter(
+#             lambda p: not p.startswith("Lv"), self.pkmn_by_location[loc]
+#         )
+#         encounter = random.choice(list(set(locations)))
+#         location_encounters[loc] = self.get_stats_for_pkmn(encounter)
+
+#     return location_encounters
+
+# oh this too lmao
+
+# def get_random_team_from_available_pokemon(self, force_fully_evolved=False):
+#     if self.wild_pkmn is None:
+#         raise LookupError("Pokemon availability table not populated.")
+
+#     pkmn = random.sample(list(self.wild_pkmn), 6)
+#     # add section for filter to non-NFEs?
+#     if force_fully_evolved:
+#         NFE_LIST = self.get_nfe_list()
+#         for ind, pk in enumerate(pkmn):
+#             new_pkmn = pk
+#             while new_pkmn in NFE_LIST and new_pkmn not in pkmn:
+#                 new_pkmn = random.choice(list(self.wild_pkmn))
+#             pkmn[ind] = new_pkmn
+
+#     team = []
+#     for member in pkmn:
+#         team.append(self.get_stats_for_pkmn(member, include_locations=True))
+#     return team
+
+# def get_nfe_list(self):
+#     NFE_LIST = []
+#     with open("./lists/nfe.txt", "r") as nfe_file:
+#         NFE_LIST = nfe_file.readlines()
+#     return NFE_LIST
 
 if __name__ == "__main__":
     parser = argparse.ArgumentParser("generate_random_team")

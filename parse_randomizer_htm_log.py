@@ -1,5 +1,4 @@
 from bs4 import BeautifulSoup
-import random
 
 # for use with the Brentspector release of the universal pkmn randomizer apparently.
 # if your rando has "version 1.10.3" somewhere in it, you're gonna get an HTML log
@@ -15,7 +14,7 @@ class PkmnRandomizerHtmLogParser:
         self.pkmn_stats = None
         self.parse_html_log(logfile)  # init
 
-    def find_pkmn_location_info(self):
+    def find_wild_pkmn_location_info(self):
         self.pkmn_by_location = {}
         html_pk_set_lists = self.soup.find_all("ul", class_="pk-set-list")
         for pk_set_list in html_pk_set_lists:
@@ -76,7 +75,7 @@ class PkmnRandomizerHtmLogParser:
 
     def parse_html_log(self, html_log):
         self.soup = BeautifulSoup(html_log, "html.parser")
-        self.find_pkmn_location_info()
+        self.find_wild_pkmn_location_info()
         self.find_pkmn_base_stats()
 
     def get_stats_for_pkmn(self, pkmn, include_locations=True, include_moves=False):
@@ -121,49 +120,3 @@ class PkmnRandomizerHtmLogParser:
         for loc in self.pkmn_by_location:
             if pkmn in self.pkmn_by_location[loc]:
                 yield loc
-
-    def get_nfe_list(self):
-        NFE_LIST = []
-        with open("./lists/nfe.txt", "r") as nfe_file:
-            NFE_LIST = nfe_file.readlines()
-        return NFE_LIST
-
-    def get_random_team_from_available_pokemon(self, force_fully_evolved=False):
-        if self.wild_pkmn is None:
-            raise LookupError("Pokemon availability table not populated.")
-
-        pkmn = random.sample(list(self.wild_pkmn), 6)
-        # add section for filter to non-NFEs?
-        if force_fully_evolved:
-            NFE_LIST = self.get_nfe_list()
-            for ind, pk in enumerate(pkmn):
-                new_pkmn = pk
-                while new_pkmn in NFE_LIST and new_pkmn not in pkmn:
-                    new_pkmn = random.choice(list(self.wild_pkmn))
-                pkmn[ind] = new_pkmn
-
-        team = []
-        for member in pkmn:
-            team.append(self.get_stats_for_pkmn(member, include_locations=True))
-        return team
-
-    def choose_encounter_for_all_locations(self):
-        if self.pkmn_by_location is None:
-            raise LookupError("Pokemon stats table not populated.")
-        location_encounters = {}
-        for loc in self.pkmn_by_location:
-            locations = filter(
-                lambda p: not p.startswith("Lv"), self.pkmn_by_location[loc]
-            )
-            encounter = random.choice(list(set(locations)))
-            location_encounters[loc] = self.get_stats_for_pkmn(encounter)
-
-        return location_encounters
-
-
-if __name__ == "__main__":
-    infile = "test_emerald.gba.log.html"
-    with open(infile, "r", encoding="windows-1252") as fp:
-        pkr = PkmnRandomizerHtmLogParser(fp)
-        # print(pkr.get_random_team_from_available_pokemon())
-        print(pkr.choose_encounter_for_all_locations())
