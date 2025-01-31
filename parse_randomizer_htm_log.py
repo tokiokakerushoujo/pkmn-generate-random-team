@@ -100,6 +100,13 @@ class PkmnRandomizerHtmLogParser:
         if "type" in this_pkmn:
             this_pkmn["types"] = this_pkmn["type"].split("\n")
             del this_pkmn["type"]
+        if "total" in this_pkmn:
+            this_pkmn["total"] = int(this_pkmn["total"])
+
+        stat_names = ["hp", "spe", "atk", "spatk", "def", "spdef"]
+        for stat_name in stat_names:
+            this_pkmn[stat_name] = int(this_pkmn[stat_name])
+
 
         # passed param-based inclusions -- dont include if flag not passed, so delete it
         if include_locations:

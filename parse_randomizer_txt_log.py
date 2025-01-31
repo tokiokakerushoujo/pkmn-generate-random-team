@@ -125,22 +125,15 @@ class PkmnRandomizerTextLogParser:
             curr_pkmn_stats["items"] = list(
                 map(str.strip, curr_pkmn_stats["items"].split(","))
             )
-
+        
         if "total" not in curr_pkmn_stats:
-            curr_pkmn_stats["total"] = sum(
-                map(
-                    int,
-                    [
-                        curr_pkmn_stats["hp"],
-                        curr_pkmn_stats["atk"],
-                        curr_pkmn_stats["spatk"],
-                        curr_pkmn_stats["spe"],
-                        curr_pkmn_stats["def"],
-                        curr_pkmn_stats["spdef"],
-                    ],
-                )
-            )
+            curr_pkmn_stats["total"] = 0
 
+        stat_names = ["hp", "spe", "atk", "spatk", "def", "spdef"]
+        for stat_name in stat_names:
+            curr_pkmn_stats[stat_name] = int(curr_pkmn_stats[stat_name])
+            curr_pkmn_stats["total"] += curr_pkmn_stats[stat_name]
+        
         # passed param-based inclusions -- dont include if flag not passed, so delete it
         if include_locations:
             curr_pkmn_stats["locations"] = list(
