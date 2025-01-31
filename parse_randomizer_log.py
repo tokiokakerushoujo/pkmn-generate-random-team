@@ -19,19 +19,21 @@ class PkmnRandomizerLogParser:
             return parser
 
     @classmethod
-    def from_log(cls, logfile_path: str = ""):
+    def from_txt(cls, logfile_path: str = ""):
         parser = PkmnRandomizerNormalLogParser(logfile_path)
         return parser
 
 
 def test():
     print("Test.")
-    infile = "test_zx_emerald.gba.log"
-    pkr = PkmnRandomizerLogParser.from_log(logfile_path=infile)
-    team = random.sample(list(pkr.wild_pokemon), 6)
-    for member in team:
-        print(member, pkr.get_pokemon_stats(member))
+    htm_parser:PkmnRandomizerHtmLogParser = PkmnRandomizerLogParser.from_htm("./testing/test_emerald.gba.log.html")
+    txt_parser:PkmnRandomizerNormalLogParser = PkmnRandomizerLogParser.from_txt("./testing/test_zx_emerald.gba.log")
 
+    htm_treecko = htm_parser.get_stats_for_pkmn("TREECKO")
+    txt_treecko = txt_parser.get_stats_for_pkmn("TREECKO")
+
+    print(htm_treecko)
+    print(txt_treecko)
 
 if __name__ == "__main__":
     test()

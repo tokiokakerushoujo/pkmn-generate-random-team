@@ -6,7 +6,7 @@ class PkmnRandomizerNormalLogParser:
     def __init__(self, logfile: str) -> None:
         self.log_data = self.read_log(logfile)
         # [azurill, lotad, vulpix, ...]
-        self.wild_pokemon = set()
+        self.wild_pkmn = set()
         # { "Set #1 - ROUTE 101 Grass/Cave (rate=20)": { azurill: { level_floor: 2, level_ceil: 3 }}, lotad: { ... } }
         self.pkmn_by_location = None
         # { azurill: num: 289, hp: 66, atk: 25, def_: 41, spatk: 33, spdef: 11, spe: 15, ability1: SAND VEIL, ability2: SAND VEIL, items: None, types: [PSYCHIC, DRAGON], ...}
@@ -69,7 +69,7 @@ class PkmnRandomizerNormalLogParser:
 
             pkmn_data[pkmn] = {"level_floor": level_floor, "level_ceil": level_ceil}
             # side-effect: this is just to make processing the list of wild pokemon easier later
-            self.wild_pokemon.add(pkmn)
+            self.wild_pkmn.add(pkmn)
 
         return pkmn_data
 
@@ -111,8 +111,9 @@ class PkmnRandomizerNormalLogParser:
         # there can be whitespace bc of the way i captured the ability groups
         curr_pkmn_stats["ability1"] = curr_pkmn_stats["ability1"].strip()
         curr_pkmn_stats["ability2"] = curr_pkmn_stats["ability2"].strip()
+        curr_pkmn_stats["species"]  = curr_pkmn_stats["species"].strip()
 
-        curr_pkmn_species = curr_pkmn_stats["species"].strip()
+        curr_pkmn_species = curr_pkmn_stats["species"]
         if curr_pkmn_stats["ability1"] == "-------":
             curr_pkmn_stats["ability1"] = curr_pkmn_stats["ability2"]
         if curr_pkmn_stats["ability2"] == "-------":
@@ -121,8 +122,6 @@ class PkmnRandomizerNormalLogParser:
         # checks for safety but can be omitted
         if "num" in curr_pkmn_stats:
             del curr_pkmn_stats["num"]
-        if "species" in curr_pkmn_stats:
-            del curr_pkmn_stats["species"]
 
         if isinstance(curr_pkmn_stats["types"], str):
             curr_pkmn_stats["types"] = curr_pkmn_stats["types"].split("\n")
@@ -165,7 +164,7 @@ class PkmnRandomizerNormalLogParser:
 
         return self.pkmn_stats
 
-    def get_pokemon_stats(self, species):
+    def get_stats_for_pkmn(self, species):
         if self.pkmn_stats is None or species not in self.pkmn_stats:
             raise LookupError(
                 f"Pokemon stats not found, cannot locate {species} in pokemon stat list."

@@ -6,14 +6,17 @@ import random
 
 
 class PkmnRandomizerHtmLogParser:
-    def __init__(self, randomizer_logfile) -> None:
-        self.available_pkmn = None
+    def __init__(self, logfile) -> None:
+        # [azurill, lotad, vulpix, ...]
+        self.wild_pkmn = set()
+        # { "Set #1 - ROUTE 101 Grass/Cave (rate=20)": { azurill: { level_floor: 2, level_ceil: 3 }}, lotad: { ... } }
+        self.pkmn_by_location = None
+        # { azurill: num: 289, hp: 66, atk: 25, def_: 41, spatk: 33, spdef: 11, spe: 15, ability1: SAND VEIL, ability2: SAND VEIL, items: None, types: [PSYCHIC, DRAGON], ...}
         self.pkmn_stats = None
-        self.pkmn_locations = None
-        self.parse_html_log(randomizer_logfile)  # init
+        self.parse_html_log(logfile)  # init
 
     def find_pkmn_location_info(self):
-        self.pkmn_locations = {}
+        self.pkmn_by_location = {}
         html_pk_set_lists = self.soup.find_all("ul", class_="pk-set-list")
         for pk_set_list in html_pk_set_lists:
             location = pk_set_list.find_previous("div").get_text().strip()
@@ -21,15 +24,15 @@ class PkmnRandomizerHtmLogParser:
             pkmn_in_pk_set = list(
                 filter(lambda p: p != "", map(str.strip, pk_set_list_text.split("\n")))
             )
-            self.pkmn_locations[location] = pkmn_in_pk_set
+            self.pkmn_by_location[location] = pkmn_in_pk_set
 
-        self.available_pkmn = set()
-        for pkmn_loc in self.pkmn_locations:
-            for pkmn in self.pkmn_locations[pkmn_loc]:
+        self.wild_pkmn = set()
+        for pkmn_loc in self.pkmn_by_location:
+            for pkmn in self.pkmn_by_location[pkmn_loc]:
                 if pkmn.startswith("Lv"):
                     continue
                 else:
-                    self.available_pkmn.add(pkmn)
+                    self.wild_pkmn.add(pkmn)
 
     def find_stats_table(self):
         html_stats_table_label = self.soup.find("h2", id="ps")
@@ -76,7 +79,7 @@ class PkmnRandomizerHtmLogParser:
         self.find_pkmn_location_info()
         self.find_pkmn_base_stats()
 
-    def get_stats_for_pkmn(self, pkmn, include_locations=False, include_moves=False):
+    def get_stats_for_pkmn(self, pkmn, include_locations=True, include_moves=False):
         if self.pkmn_stats is None:
             raise LookupError("Pokemon stats table not populated.")
         this_pkmn = self.pkmn_stats[pkmn]
@@ -92,10 +95,12 @@ class PkmnRandomizerHtmLogParser:
             del this_pkmn["num"]
         if "big" in this_pkmn:
             del this_pkmn["big"]
-        if isinstance(this_pkmn["type"], str):
-            this_pkmn["type"] = this_pkmn["type"].split("\n")
-        if isinstance(this_pkmn["item"], str):
-            this_pkmn["item"] = list(map(str.strip, this_pkmn["item"].split("\n")))
+        if "item" in this_pkmn:
+            this_pkmn["items"] = list(map(str.strip, this_pkmn["item"].split("\n")))
+            del this_pkmn["item"]
+        if "type" in this_pkmn:
+            this_pkmn["types"] = this_pkmn["type"].split("\n")
+            del this_pkmn["type"]
 
         # passed param-based inclusions -- dont include if flag not passed, so delete it
         if include_locations:
@@ -111,10 +116,10 @@ class PkmnRandomizerHtmLogParser:
         return this_pkmn
 
     def get_locations_for_pkmn(self, pkmn):
-        if self.pkmn_locations is None:
+        if self.pkmn_by_location is None:
             raise LookupError("Pokemon stats table not populated.")
-        for loc in self.pkmn_locations:
-            if pkmn in self.pkmn_locations[loc]:
+        for loc in self.pkmn_by_location:
+            if pkmn in self.pkmn_by_location[loc]:
                 yield loc
 
     def get_nfe_list(self):
@@ -124,17 +129,17 @@ class PkmnRandomizerHtmLogParser:
         return NFE_LIST
 
     def get_random_team_from_available_pokemon(self, force_fully_evolved=False):
-        if self.available_pkmn is None:
+        if self.wild_pkmn is None:
             raise LookupError("Pokemon availability table not populated.")
 
-        pkmn = random.sample(list(self.available_pkmn), 6)
+        pkmn = random.sample(list(self.wild_pkmn), 6)
         # add section for filter to non-NFEs?
         if force_fully_evolved:
             NFE_LIST = self.get_nfe_list()
             for ind, pk in enumerate(pkmn):
                 new_pkmn = pk
                 while new_pkmn in NFE_LIST and new_pkmn not in pkmn:
-                    new_pkmn = random.choice(list(self.available_pkmn))
+                    new_pkmn = random.choice(list(self.wild_pkmn))
                 pkmn[ind] = new_pkmn
 
         team = []
@@ -143,12 +148,12 @@ class PkmnRandomizerHtmLogParser:
         return team
 
     def choose_encounter_for_all_locations(self):
-        if self.pkmn_locations is None:
+        if self.pkmn_by_location is None:
             raise LookupError("Pokemon stats table not populated.")
         location_encounters = {}
-        for loc in self.pkmn_locations:
+        for loc in self.pkmn_by_location:
             locations = filter(
-                lambda p: not p.startswith("Lv"), self.pkmn_locations[loc]
+                lambda p: not p.startswith("Lv"), self.pkmn_by_location[loc]
             )
             encounter = random.choice(list(set(locations)))
             location_encounters[loc] = self.get_stats_for_pkmn(encounter)
