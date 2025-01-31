@@ -4,7 +4,7 @@ import random
 # for use with the Brentspector release of the universal pkmn randomizer
 # apparently.
 
-class PkmnRandomizer:
+class PkmnRandomizerHtmLogParser:
     def __init__(self, randomizer_logfile) -> None:
         self.available_pkmn = None
         self.pkmn_stats = None
@@ -158,6 +158,6 @@ class PkmnRandomizer:
 if __name__ == "__main__":
     infile = "test_emerald.gba.log.html"
     with open(infile, "r", encoding="windows-1252") as fp:
-        pkr = PkmnRandomizer(fp)
+        pkr = PkmnRandomizerHtmLogParser(fp)
         # print(pkr.get_random_team_from_available_pokemon())
         print(pkr.choose_encounter_for_all_locations())
