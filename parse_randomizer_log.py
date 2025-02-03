@@ -1,7 +1,6 @@
 import argparse
 import pathlib
-import random
-from parser_types import PkmnRandomizerLogParser
+from src.rando_parsers.parser_types import PkmnRandomizerLogParser
 
 
 def test(htm_logfile: str = "", txt_logfile: str = ""):
@@ -28,7 +27,6 @@ def test(htm_logfile: str = "", txt_logfile: str = ""):
     print(list(txt_testpkmn_locs))
 
 def write_data_to_file(parser: PkmnRandomizerLogParser):
-    
     raise NotImplementedError
 
 def create_args_parser():

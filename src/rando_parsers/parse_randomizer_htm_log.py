@@ -3,7 +3,7 @@ from bs4 import BeautifulSoup
 
 # for use with the Brentspector release of the universal pkmn randomizer apparently.
 # if your rando has "version 1.10.3" somewhere in it, you're gonna get an HTML log
-from pkmn_types import PkmnStatBlock
+from src.rando_parsers.pkmn_types import PkmnStatBlock
 
 class PkmnRandomizerHtmLogParser:
     def __init__(self, logfile) -> None:

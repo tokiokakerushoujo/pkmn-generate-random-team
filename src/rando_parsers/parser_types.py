@@ -1,5 +1,5 @@
-from parse_randomizer_htm_log import PkmnRandomizerHtmLogParser
-from parse_randomizer_txt_log import PkmnRandomizerTextLogParser
+from src.rando_parsers.parse_randomizer_htm_log import PkmnRandomizerHtmLogParser
+from src.rando_parsers.parse_randomizer_txt_log import PkmnRandomizerTextLogParser
 from abc import ABC, abstractmethod
 
 

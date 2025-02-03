@@ -1,5 +1,5 @@
 from typing import Optional, cast
-from pkmn_types import PkmnStatBlock
+from src.rando_parsers.pkmn_types import PkmnStatBlock
 import re
 
 
