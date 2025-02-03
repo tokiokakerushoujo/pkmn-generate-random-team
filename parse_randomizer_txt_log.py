@@ -1,4 +1,5 @@
-from typing import Optional
+from typing import Optional, cast
+from pkmn_types import PkmnStatBlock
 import re
 
 
@@ -16,7 +17,7 @@ class PkmnRandomizerTextLogParser:
         # { "Set #1 - ROUTE 101 Grass/Cave (rate=20)": { azurill: { level_floor: 2, level_ceil: 3 }}, lotad: { ... } }
         self.pkmn_by_location = None
         # { azurill: num: 289, hp: 66, atk: 25, def_: 41, spatk: 33, spdef: 11, spe: 15, ability1: SAND VEIL, ability2: SAND VEIL, items: None, types: [PSYCHIC, DRAGON], ...}
-        self.pkmn_stats = None
+        self.pkmn_stats: dict[str, PkmnStatBlock]|None = None
 
         # init
         self.find_wild_pkmn_location_info()
@@ -102,7 +103,7 @@ class PkmnRandomizerTextLogParser:
 
         return self.pkmn_by_location
 
-    def format_pokemon_stats(self, regex_match, include_locations=True):
+    def format_pokemon_stats(self, regex_match) -> PkmnStatBlock:
         curr_pkmn_stats = regex_match.groupdict()
         # there can be whitespace bc of the way i captured the ability groups
         curr_pkmn_stats["ability1"] = curr_pkmn_stats["ability1"].strip()
@@ -125,7 +126,7 @@ class PkmnRandomizerTextLogParser:
             curr_pkmn_stats["items"] = list(
                 map(str.strip, curr_pkmn_stats["items"].split(","))
             )
-        
+
         if "total" not in curr_pkmn_stats:
             curr_pkmn_stats["total"] = 0
 
@@ -133,18 +134,15 @@ class PkmnRandomizerTextLogParser:
         for stat_name in stat_names:
             curr_pkmn_stats[stat_name] = int(curr_pkmn_stats[stat_name])
             curr_pkmn_stats["total"] += curr_pkmn_stats[stat_name]
-        
+
         # passed param-based inclusions -- dont include if flag not passed, so delete it
-        if include_locations:
-            curr_pkmn_stats["locations"] = list(
-                self.get_locations_for_pkmn(curr_pkmn_species)
-            )
-        elif "locations" in curr_pkmn_stats:
-            del curr_pkmn_stats["locations"]
+        curr_pkmn_stats["locations"] = list(
+            self.get_locations_for_pkmn(curr_pkmn_species)
+        )
 
-        return (curr_pkmn_stats, curr_pkmn_species)
+        return cast(PkmnStatBlock, curr_pkmn_stats)
 
-    def find_pkmn_base_stats(self, include_locations=True):
+    def find_pkmn_base_stats(self) -> dict[str, PkmnStatBlock]:
         if self.pkmn_stats is None:
             self.pkmn_stats = {}
         else:
@@ -161,10 +159,8 @@ class PkmnRandomizerTextLogParser:
             stats_match := stats_table_regex.match(self.log_data[stats_table_index])
         ) is not None:
             stats_table_index += 1
-            (curr_pkmn_stats, curr_pkmn_species) = self.format_pokemon_stats(
-                stats_match, include_locations=include_locations
-            )
-            self.pkmn_stats[curr_pkmn_species] = curr_pkmn_stats
+            curr_pkmn_stats = self.format_pokemon_stats(stats_match)
+            self.pkmn_stats[curr_pkmn_stats["species"]] = curr_pkmn_stats
 
         return self.pkmn_stats
 

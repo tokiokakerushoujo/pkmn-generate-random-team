@@ -1,35 +1,18 @@
 import argparse
 import pathlib
 import random
-from parse_randomizer_htm_log import PkmnRandomizerHtmLogParser
-from parse_randomizer_txt_log import PkmnRandomizerTextLogParser
-
-# should probably declare some pokemon data types to keep me honest
-# pokemon are just a typed dict so it shouldnt be bad
+from parser_types import PkmnRandomizerLogParser
 
 
-class PkmnRandomizerLogParser:
-    def __init__(self) -> None:
-        raise RuntimeError(
-            "Construct this class using class method from_htm or from_log"
-        )
+def test(htm_logfile: str = "", txt_logfile: str = ""):
+    if len(htm_logfile) == 0:
+        htm_logfile = "./testing/test_emerald.gba.log.html"
+    if len(txt_logfile) == 0:
+        txt_logfile = "./testing/test_zx_emerald.gba.log"
 
-    @classmethod
-    def from_htm(cls, htm_logfile_path: str = ""):
-        with open(htm_logfile_path, "r", encoding="windows-1252") as htmfp:
-            parser = PkmnRandomizerHtmLogParser(htmfp)
-            return parser
-
-    @classmethod
-    def from_txt(cls, logfile_path: str = ""):
-        parser = PkmnRandomizerTextLogParser(logfile_path)
-        return parser
-
-
-def test():
     print("Test.")
-    htm_parser:PkmnRandomizerHtmLogParser = PkmnRandomizerLogParser.from_htm("./testing/test_emerald.gba.log.html")
-    txt_parser:PkmnRandomizerTextLogParser = PkmnRandomizerLogParser.from_txt("./testing/test_zx_emerald.gba.log")
+    htm_parser = PkmnRandomizerLogParser.from_htm(htm_logfile)
+    txt_parser = PkmnRandomizerLogParser.from_txt(txt_logfile)
 
     test_pkmn = "METAGROSS"
     htm_testpkmn = htm_parser.get_stats_for_pkmn(test_pkmn)
@@ -43,6 +26,10 @@ def test():
 
     print(list(htm_testpkmn_locs))
     print(list(txt_testpkmn_locs))
+
+def write_data_to_file(parser: PkmnRandomizerLogParser):
+    
+    raise NotImplementedError
 
 def create_args_parser():
     # old parser: 
@@ -70,9 +57,9 @@ def create_args_parser():
     return parser
 
 if __name__ == "__main__":
-    # test()
     args_parser = create_args_parser()
     args = args_parser.parse_args()
+    test()
 
     # if args.find:
     #     print(f"finding locations of {args.find}")

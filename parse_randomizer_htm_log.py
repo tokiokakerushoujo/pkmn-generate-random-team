@@ -1,8 +1,9 @@
+from typing import Optional, TypedDict, cast
 from bs4 import BeautifulSoup
 
 # for use with the Brentspector release of the universal pkmn randomizer apparently.
 # if your rando has "version 1.10.3" somewhere in it, you're gonna get an HTML log
-
+from pkmn_types import PkmnStatBlock
 
 class PkmnRandomizerHtmLogParser:
     def __init__(self, logfile) -> None:
@@ -11,7 +12,7 @@ class PkmnRandomizerHtmLogParser:
         # { "Set #1 - ROUTE 101 Grass/Cave (rate=20)": { azurill: { level_floor: 2, level_ceil: 3 }}, lotad: { ... } }
         self.pkmn_by_location = None
         # { azurill: num: 289, hp: 66, atk: 25, def_: 41, spatk: 33, spdef: 11, spe: 15, ability1: SAND VEIL, ability2: SAND VEIL, items: None, types: [PSYCHIC, DRAGON], ...}
-        self.pkmn_stats = None
+        self.pkmn_stats: dict[str, PkmnStatBlock]|None = None
         self.parse_html_log(logfile)  # init
 
     def find_wild_pkmn_location_info(self):
@@ -71,18 +72,14 @@ class PkmnRandomizerHtmLogParser:
             for ind, stat_cell in enumerate(stats_cells):
                 this_pkmn[table_headers[ind]] = stat_cell.get_text().strip()
 
-            self.pkmn_stats[this_pkmn["species"]] = this_pkmn
+            self.pkmn_stats[this_pkmn["species"]] = self.format_pkmn_stat_block(this_pkmn)
 
     def parse_html_log(self, html_log):
         self.soup = BeautifulSoup(html_log, "html.parser")
         self.find_wild_pkmn_location_info()
         self.find_pkmn_base_stats()
 
-    def get_stats_for_pkmn(self, pkmn, include_locations=True, include_moves=False):
-        if self.pkmn_stats is None:
-            raise LookupError("Pokemon stats table not populated.")
-        this_pkmn = self.pkmn_stats[pkmn]
-
+    def format_pkmn_stat_block(self, this_pkmn):
         # mutations for human readability/convenience
         if this_pkmn["ability1"] == "-------":
             this_pkmn["ability1"] = this_pkmn["ability2"]
@@ -109,16 +106,26 @@ class PkmnRandomizerHtmLogParser:
 
 
         # passed param-based inclusions -- dont include if flag not passed, so delete it
-        if include_locations:
-            this_pkmn["locations"] = list(self.get_locations_for_pkmn(pkmn))
-        elif "locations" in this_pkmn:
-            del this_pkmn["locations"]
+        this_pkmn["locations"] = list(self.get_locations_for_pkmn(this_pkmn["species"]))
 
-        if include_moves:
-            this_pkmn["moves"] = []
-        elif "moves" in this_pkmn:
-            del this_pkmn["moves"]
+        return cast(PkmnStatBlock, this_pkmn)
 
+    def get_stats_for_pkmn(self, species: str) -> PkmnStatBlock:
+        """Retrieve the parsed data for a given Pokemon species by name.
+
+        Args:
+            species (str): The name of the pokemon.
+
+        Raises:
+            LookupError: If the pokemon data has not been loaded or the pokemon does not exist in that data.
+
+        Returns:
+            PkmnStatBlock: The statblock of the randomized pokemon. 
+        """
+        if self.pkmn_stats is None:
+            raise LookupError("Pokemon stats table not populated.")
+        
+        this_pkmn = self.pkmn_stats[species]
         return this_pkmn
 
     def get_locations_for_pkmn(self, pkmn):
