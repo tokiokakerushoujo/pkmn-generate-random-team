@@ -5,10 +5,6 @@ from pathlib import Path
 from src.rando_parsers.parser_types import PkmnRandomizerLogParser
 
 
-def write_data_to_file(parser: PkmnRandomizerLogParser):
-    raise NotImplementedError
-
-
 def create_args_parser():
     # old parser:
     parser = argparse.ArgumentParser("parse_randomizer_log")
