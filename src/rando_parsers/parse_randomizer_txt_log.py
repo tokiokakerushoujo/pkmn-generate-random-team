@@ -18,7 +18,7 @@ class PkmnRandomizerTextLogParser:
         # { "Set #1 - ROUTE 101 Grass/Cave (rate=20)": { azurill: { level_floor: 2, level_ceil: 3 }}, lotad: { ... } }
         self.pkmn_by_location = None
         # { azurill: num: 289, hp: 66, atk: 25, def_: 41, spatk: 33, spdef: 11, spe: 15, ability1: SAND VEIL, ability2: SAND VEIL, items: None, types: [PSYCHIC, DRAGON], ...}
-        self.pkmn_stats: dict[str, PkmnStatBlock]|None = None
+        self.pkmn_stats: dict[str, PkmnStatBlock] | None = None
 
         # init
         self.find_wild_pkmn_location_info()
