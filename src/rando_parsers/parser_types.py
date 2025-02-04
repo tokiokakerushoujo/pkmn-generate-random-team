@@ -1,3 +1,4 @@
+import os
 from src.rando_parsers.parse_randomizer_htm_log import PkmnRandomizerHtmLogParser
 from src.rando_parsers.parse_randomizer_txt_log import PkmnRandomizerTextLogParser
 from abc import ABC, abstractmethod
@@ -5,6 +6,9 @@ from abc import ABC, abstractmethod
 
 class AbstractPkmnRandoLogParser(ABC):
     def __init__(self):
+        self.wild_pkmn = None
+        self.pkmn_by_location = None
+        self.pkmn_stats = None
         pass
 
     @abstractmethod
@@ -27,12 +31,12 @@ class PkmnRandomizerLogParser(AbstractPkmnRandoLogParser):
         )
 
     @classmethod
-    def from_htm(cls, htm_logfile_path: str = ""):
-        with open(htm_logfile_path, "r", encoding="windows-1252") as htmfp:
+    def from_htm(cls, htm_logfile_path: os.PathLike):
+        with open(htm_logfile_path, "r", encoding="utf-8") as htmfp:
             parser = PkmnRandomizerHtmLogParser(htmfp)
             return parser
 
     @classmethod
-    def from_txt(cls, logfile_path: str = ""):
+    def from_txt(cls, logfile_path: os.PathLike):
         parser = PkmnRandomizerTextLogParser(logfile_path)
         return parser

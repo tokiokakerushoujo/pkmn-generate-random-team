@@ -1,3 +1,4 @@
+import os
 from typing import Optional, cast
 from src.rando_parsers.pkmn_types import PkmnStatBlock
 import re
@@ -10,7 +11,7 @@ class PkmnRandomizerTextLogParser:
     # - find_* methods search the input file for their thing and set some internal value
     # - get_* methods retrieve from internal values and return their values
 
-    def __init__(self, logfile: str) -> None:
+    def __init__(self, logfile: os.PathLike) -> None:
         self.log_data = self.read_log(logfile)
         # [azurill, lotad, vulpix, ...]
         self.wild_pkmn = set()
@@ -23,8 +24,8 @@ class PkmnRandomizerTextLogParser:
         self.find_wild_pkmn_location_info()
         self.find_pkmn_base_stats()
 
-    def read_log(self, logfile: str):
-        with open(logfile, "r", encoding="windows-1252") as log:
+    def read_log(self, logfile: os.PathLike):
+        with open(logfile, "r", encoding="utf-8") as log:
             log_data = log.readlines()
             return log_data
 

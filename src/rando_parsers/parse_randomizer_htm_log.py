@@ -17,6 +17,7 @@ class PkmnRandomizerHtmLogParser:
 
     def find_wild_pkmn_location_info(self):
         self.pkmn_by_location = {}
+        self.wild_pkmn = set()
         html_pk_set_lists = self.soup.find_all("ul", class_="pk-set-list")
         for pk_set_list in html_pk_set_lists:
             location = pk_set_list.find_previous("div").get_text().strip()
@@ -24,15 +25,38 @@ class PkmnRandomizerHtmLogParser:
             pkmn_in_pk_set = list(
                 filter(lambda p: p != "", map(str.strip, pk_set_list_text.split("\n")))
             )
-            self.pkmn_by_location[location] = pkmn_in_pk_set
 
-        self.wild_pkmn = set()
-        for pkmn_loc in self.pkmn_by_location:
-            for pkmn in self.pkmn_by_location[pkmn_loc]:
-                if pkmn.startswith("Lv"):
-                    continue
-                else:
-                    self.wild_pkmn.add(pkmn)
+            for pkmn in pkmn_in_pk_set[0::2]:
+                self.wild_pkmn.add(pkmn)
+
+            pk_tuples = zip(pkmn_in_pk_set[0::2], pkmn_in_pk_set[1::2])
+            level_ranges = self.generate_location_level_ranges(pk_tuples)
+            self.pkmn_by_location[location] = level_ranges
+
+
+    def generate_location_level_ranges(self, loc_tuples):
+        pkmn_data = {}
+        for (species, lvrng) in loc_tuples:
+            if species in pkmn_data:
+                level_floor = pkmn_data[species]["level_floor"]
+                level_ceil = pkmn_data[species]["level_ceil"]
+            else:
+                level_floor = 101
+                level_ceil = 0
+            
+            if len(lvrng.split('-')) < 2:
+                # aka "Lv 50".split('-') => ['Lv 50']
+                new_lvl_floor = new_lvl_ceil = int(lvrng[3:])
+            else:
+                # "Lvs 50-60" => ["lvs 50", "60"]
+                [new_lvl_floor, new_lvl_ceil] = map(int, lvrng[4:].split(' - '))
+            
+            pkmn_data[species] = {
+                "level_floor": min(new_lvl_floor, level_floor),
+                "level_ceil": max(new_lvl_ceil, level_ceil)
+            }
+
+        return pkmn_data
 
     def find_stats_table(self):
         html_stats_table_label = self.soup.find("h2", id="ps")
