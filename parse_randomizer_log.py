@@ -4,6 +4,12 @@ from datetime import datetime
 from pathlib import Path
 from src.rando_parsers.pkmn_randomizer_log_parser import PkmnRandomizerLogParser
 
+# TODO:
+# - verify html compat with gen 6/7/8/9 randos
+# - verify txt compat with gen 5+ randos
+# - write script to gather and generate the vanilla json for all games
+# - rewrite generate_random_team logic to accept new data format from rando log parser
+
 
 def create_args_parser():
     # old parser:
@@ -23,6 +29,13 @@ def create_args_parser():
         If not provided, writes to a local file called "parsed_randolog_{now}"
         """,
         type=Path,
+    )
+
+    parser.add_argument(
+        "-d",
+        "--debug",
+        action="store_true",
+        help="""For debug purposes. Do not output to file."""
     )
 
     return parser
@@ -49,11 +62,17 @@ if __name__ == "__main__":
     if outfile.suffix != ".json":
         outfile = outfile.with_suffix(".json")
 
-    print(f"\t\t> Writing parsed data to {outfile}.")
-    with open(outfile, "w+") as fp:
-        pkmn_data = {
-            "stats": parser.pkmn_stats,
-            "locations": parser.pkmn_by_location,
-            "wild_pkmn": list(parser.wild_pkmn),
-        }
-        json.dump(pkmn_data, fp)
+    if (args.debug):
+        print(parser.pkmn_stats)
+        print(parser.pkmn_by_location)
+        print(parser.wild_pkmn)
+        print("DEBUGGING FINISHED.")
+    else:
+        print(f"\t\t> Writing parsed data to {outfile}.")
+        with open(outfile, "w+") as fp:
+            pkmn_data = {
+                "stats": parser.pkmn_stats,
+                "locations": parser.pkmn_by_location,
+                "wild_pkmn": list(parser.wild_pkmn),
+            }
+            json.dump(pkmn_data, fp)
