@@ -1,6 +1,6 @@
 from typing import cast
 from bs4 import BeautifulSoup
-from src.rando_parsers.pkmn_types import PkmnStatBlock
+from src.rando_parsers.pkmn_stat_block import PkmnStatBlock
 
 
 class PkmnRandomizerHtmLogParser:

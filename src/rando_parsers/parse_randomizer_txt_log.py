@@ -1,6 +1,6 @@
 import os
 from typing import Optional, cast
-from src.rando_parsers.pkmn_types import PkmnStatBlock
+from src.rando_parsers.pkmn_stat_block import PkmnStatBlock
 import re
 
 

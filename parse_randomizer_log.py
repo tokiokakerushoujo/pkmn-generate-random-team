@@ -2,7 +2,7 @@ import json
 import argparse
 from datetime import datetime
 from pathlib import Path
-from src.rando_parsers.parser_types import PkmnRandomizerLogParser
+from src.rando_parsers.pkmn_randomizer_log_parser import PkmnRandomizerLogParser
 
 
 def create_args_parser():
