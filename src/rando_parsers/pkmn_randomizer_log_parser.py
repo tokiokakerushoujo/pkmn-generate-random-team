@@ -32,9 +32,17 @@ class PkmnRandomizerLogParser(AbstractPkmnRandoLogParser):
 
     @classmethod
     def from_htm(cls, htm_logfile_path: os.PathLike):
-        with open(htm_logfile_path, "r", encoding="utf-8") as htmfp:
-            parser = PkmnRandomizerHtmLogParser(htmfp)
-            return parser
+        try:
+            with open(htm_logfile_path, "r", encoding="utf-8") as htmfp:
+                parser = PkmnRandomizerHtmLogParser(htmfp)
+                return parser
+        except UnicodeDecodeError:
+            try:
+                with open(htm_logfile_path, "r", encoding="windows-1252") as htmfp:
+                    parser = PkmnRandomizerHtmLogParser(htmfp)
+                    return parser
+            except: 
+                raise
 
     @classmethod
     def from_txt(cls, logfile_path: os.PathLike):
