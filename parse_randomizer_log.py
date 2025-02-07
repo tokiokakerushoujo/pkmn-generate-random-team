@@ -63,9 +63,9 @@ if __name__ == "__main__":
         outfile = outfile.with_suffix(".json")
 
     if (args.debug):
-        print(parser.pkmn_stats)
-        print(parser.pkmn_by_location)
-        print(parser.wild_pkmn)
+        # print(parser.pkmn_stats)
+        # print(parser.pkmn_by_location)
+        # print(parser.wild_pkmn)
         print("DEBUGGING FINISHED.")
     else:
         print(f"\t\t> Writing parsed data to {outfile}.")

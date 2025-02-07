@@ -109,6 +109,27 @@ class PkmnRandomizerHtmLogParser:
             return
         
         stats_table_rows = html_stats_table.find_all("tr")  # type: ignore
+        first_row = stats_table_rows[0]
+        first_row_cells = first_row.find_all("th") # because the first row is headers
+
+        # modify the abilities table based on generation
+        cells_in_row = len(first_row_cells)
+        if cells_in_row < gen5_stat_cols:
+            # no hidden abilities in this gen, skip "ability3" parsing
+            # ability3 is the one guaranteed drop from all cols pre-gen5
+            table_headers.remove("ability3")
+        
+        if cells_in_row <= gen2_stat_cols:
+            # gen 2 stat table - abilities do not exist
+            table_headers.remove("ability1")
+            table_headers.remove("ability2")
+        
+        if cells_in_row == gen1_stat_cols:
+            # gen 1 stat table - items cannot be held
+            # spatk/spdef were combined 
+            table_headers.remove("item")
+            table_headers.remove("spdef")
+
         for stats_row in stats_table_rows:
             if self.pkmn_stats is None:
                 self.pkmn_stats = {}
@@ -117,23 +138,6 @@ class PkmnRandomizerHtmLogParser:
             this_pkmn = {}
 
             stats_cells = stats_row.find_all("td")
-            cells_in_row = len(stats_cells)
-
-            if cells_in_row < gen5_stat_cols:
-                # no hidden abilities in this gen, skip "ability3" parsing
-                # ability3 is the one guaranteed drop from all cols pre-gen5
-                table_headers.remove("ability3")
-            
-            if cells_in_row <= gen2_stat_cols:
-                # gen 2 stat table - abilities do not exist
-                table_headers.remove("ability1")
-                table_headers.remove("ability2")
-            
-            if cells_in_row == gen1_stat_cols:
-                # gen 1 stat table - items cannot be held
-                # spatk/spdef were combined 
-                table_headers.remove("item")
-                table_headers.remove("spdef")
 
             for ind, stat_cell in enumerate(stats_cells):
                 this_pkmn[table_headers[ind]] = stat_cell.get_text().strip()
@@ -141,7 +145,6 @@ class PkmnRandomizerHtmLogParser:
             self.pkmn_stats[this_pkmn["species"]] = self.format_pkmn_stat_block(
                 this_pkmn
             )
-            print(this_pkmn)
 
     def parse_html_log(self, html_log):
         self.soup = BeautifulSoup(html_log, "html.parser")
