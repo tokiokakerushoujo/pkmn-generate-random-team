@@ -105,6 +105,7 @@ def prompt():
         print("Invalid input.")
         return None
 
+
 # Removed from parse_randomizer_htm_log because that's not that file's responsiblity
 # but I wanna keep this snippet around for later when I rewrite this section
 # def choose_encounter_for_all_locations(self):

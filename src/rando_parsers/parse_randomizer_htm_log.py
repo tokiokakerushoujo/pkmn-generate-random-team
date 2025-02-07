@@ -72,12 +72,16 @@ class PkmnRandomizerHtmLogParser:
 
         html_stats_table = html_stats_table_label.find_next()
         if html_stats_table is None:
-            raise Exception("There's supposed to be something after the stats table heading, but there isn't.")
+            raise Exception(
+                "There's supposed to be something after the stats table heading, but there isn't."
+            )
 
         if html_stats_table.name != "table":
             if html_stats_table.text.lower() == "unchanged.":
                 return None
-            raise Exception("That aint a table folks. Iunno what it is, but a table it are not.")
+            raise Exception(
+                "That aint a table folks. Iunno what it is, but a table it are not."
+            )
 
         return html_stats_table
 
@@ -99,18 +103,18 @@ class PkmnRandomizerHtmLogParser:
             "item",
             "big",
         ]
-        gen5_stat_cols = 15 # aka len(table_headers)
-        gen2_stat_cols = 12 # gen5_stat_cols - 3 (ability1-3)
-        gen1_stat_cols = 10 # gen2_stat_cols - 2 (items, spdef)
+        gen5_stat_cols = 15  # aka len(table_headers)
+        gen2_stat_cols = 12  # gen5_stat_cols - 3 (ability1-3)
+        gen1_stat_cols = 10  # gen2_stat_cols - 2 (items, spdef)
 
         html_stats_table = self.find_stats_table()
         if html_stats_table is None:
             self.pkmn_stats = None
             return
-        
+
         stats_table_rows = html_stats_table.find_all("tr")  # type: ignore
         first_row = stats_table_rows[0]
-        first_row_cells = first_row.find_all("th") # because the first row is headers
+        first_row_cells = first_row.find_all("th")  # because the first row is headers
 
         # modify the abilities table based on generation
         cells_in_row = len(first_row_cells)
@@ -118,15 +122,15 @@ class PkmnRandomizerHtmLogParser:
             # no hidden abilities in this gen, skip "ability3" parsing
             # ability3 is the one guaranteed drop from all cols pre-gen5
             table_headers.remove("ability3")
-        
+
         if cells_in_row <= gen2_stat_cols:
             # gen 2 stat table - abilities do not exist
             table_headers.remove("ability1")
             table_headers.remove("ability2")
-        
+
         if cells_in_row == gen1_stat_cols:
             # gen 1 stat table - items cannot be held
-            # spatk/spdef were combined 
+            # spatk/spdef were combined
             table_headers.remove("item")
             table_headers.remove("spdef")
 

@@ -41,7 +41,7 @@ class PkmnRandomizerLogParser(AbstractPkmnRandoLogParser):
                 with open(htm_logfile_path, "r", encoding="windows-1252") as htmfp:
                     parser = PkmnRandomizerHtmLogParser(htmfp)
                     return parser
-            except: 
+            except:
                 raise
 
     @classmethod
