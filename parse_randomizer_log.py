@@ -38,6 +38,12 @@ def create_args_parser():
         help="""For debug purposes. Do not output to file.""",
     )
 
+    parser.add_argument(
+        "--smogon",
+        action="store_true",
+        help="""Writes pokemon stat data in the smogon damage calculator format instead. For use with custom calcs."""
+    )
+
     return parser
 
 
@@ -70,9 +76,12 @@ if __name__ == "__main__":
     else:
         print(f"\t\t> Writing parsed data to {outfile}.")
         with open(outfile, "w+") as fp:
-            pkmn_data = {
-                "stats": parser.pkmn_stats,
-                "locations": parser.pkmn_by_location,
-                "wild_pkmn": list(parser.wild_pkmn),
-            }
+            if (args.smogon):
+                pkmn_data = parser.convert_pkmn_data_to_smogon_data_format()
+            else:
+                pkmn_data = {
+                    "stats": parser.pkmn_stats,
+                    "locations": parser.pkmn_by_location,
+                    "wild_pkmn": list(parser.wild_pkmn),
+                }
             json.dump(pkmn_data, fp)

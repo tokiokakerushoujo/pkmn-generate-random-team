@@ -1,6 +1,6 @@
 import os
 from typing import Optional, cast
-from src.rando_parsers.pkmn_stat_block import PkmnStatBlock
+from src.rando_parsers.pkmn_stat_block import PkmnStatBlock, SmogonPkmnStatsBlock
 import re
 
 
@@ -181,3 +181,28 @@ class PkmnRandomizerTextLogParser:
                 f"Pokemon stats not found, cannot locate {species} in pokemon stat list."
             )
         return self.pkmn_stats[species]
+    
+    def convert_pkmn_data_to_smogon_data_format(self) -> dict[str, SmogonPkmnStatsBlock]:
+        if self.pkmn_stats is None:
+            raise LookupError(f"No custom Pokemon data found.")
+        
+        smogon_stats = {}
+        for species in self.pkmn_stats:
+            curr_pkmn = self.pkmn_stats[species]
+            smogon_stats[species.title()] = {
+                "bs": {
+                    "hp": curr_pkmn["hp"],
+                    "at": curr_pkmn["atk"],
+                    "df": curr_pkmn["def"],
+                    "sa": curr_pkmn["spatk"],
+                    "sd": curr_pkmn["spdef"],
+                    "sp": curr_pkmn["spe"]
+                },
+                "abilities": {
+                    0: curr_pkmn["ability1"].title(),
+                }
+            }
+
+        return smogon_stats
+        
+

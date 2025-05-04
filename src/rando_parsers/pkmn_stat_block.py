@@ -19,3 +19,21 @@ PkmnStatBlock = TypedDict(
         "locations": list[str],
     },
 )
+
+SmogonBaseStats = TypedDict("BaseStats", {
+    "hp": int,      
+    "at": int,      
+    "df": int,      
+    "sa": int,      
+    "sd": int,      
+    "sp": int,      
+    "sl": int,
+}, total=False)
+
+SmogonPkmnStatsBlock = TypedDict(
+  "SmogonPkmnStatsBlock",
+  {
+    "bs": SmogonBaseStats,
+    "abilities": dict[int, str],
+  }
+)
